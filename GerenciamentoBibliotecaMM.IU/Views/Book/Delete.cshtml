@@ -1,0 +1,24 @@
+﻿@model ManagementLibraryMM.UI.Models.Book
+
+@{
+    ViewData["Title"] = "Create Page";
+}
+
+
+<h1 class="display-4">Welcome</h1>
+
+<div class="text-center">
+    <form asp-action="Create" method="post">
+
+        <label for="Title">Book Title: </label>
+        <input asp-for="Title" type="text" />
+
+        <label for="Author">Book Author: </label>
+        <input asp-for="Author" type="text" />
+
+        <label for="YearPublication">Book Date of Publication: </label>
+        <input asp-for="DatePublication" type="date" />
+
+        <button type="submit">Create</button>
+    </form>
+</div>
