@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 
 using ManagementLibraryMM.UI.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ManagementLibraryMM.UI.Controllers
 {
     public class BookController : Controller
     {
         private readonly ILogger<BookController> _logger;
+        private List<Book> _books;
+
         public BookController(ILogger<BookController> logger)
         {
             _logger = logger;
@@ -15,7 +18,30 @@ namespace ManagementLibraryMM.UI.Controllers
 
         public IActionResult Index()
         {
+            BookSearch bookSearch = new BookSearch();
+
+            _books = bookSearch.SearchData();
+
+            ViewBag.BookList = _books;
             return View();
+        }
+
+        public IActionResult Update(int id)
+        {
+            BookSearch bookSearch = new BookSearch();
+
+            bookSearch.UpdateData(id, "Caneta Azul", "Manuel Gomes", DateTime.Now);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            BookSearch bookSearch = new BookSearch();
+
+            bookSearch.DeleteData(id);
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Create()

@@ -5,20 +5,31 @@
 }
 
 
-<h1 class="display-4">Welcome</h1>
+<h1 class="display-4">Create Book</h1>
 
-<div class="text-center">
-    <form asp-action="Create" method="post">
+<div class="container mt-4">
+    <form asp-action="Create" method="post" class="needs-validation" novalidate>
 
-        <label for="Title">Book Title: </label>
-        <input asp-for="Title" type="text" />
+        <div class="form-group">
+            <label asp-for="Title" class="control-label">Title</label>
+            <input asp-for="Title" class="form-control" type="text"/>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
 
-        <label for="Author">Book Author: </label>
-        <input asp-for="Author" type="text" />
+        <div class="form-group">
+            <label asp-for="Author" class="control-label">Author</label>
+            <input asp-for="Author" class="form-control" type="text" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
 
-        <label for="YearPublication">Book Date of Publication: </label>
-        <input asp-for="DatePublication" type="date" />
+        <div class="form-group">
+            <label asp-for="DatePublication" class="control-label">Date of Publication</label>
+            <input asp-for="DatePublication" class="form-control" type="date" />
+            <span asp-validation-for="DatePublication" class="text-danger"></span>
+        </div>
 
-        <button type="submit">Create</button>
+        <br />
+
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>

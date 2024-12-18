@@ -1,8 +1,50 @@
-﻿@{
+﻿@model IEnumerable<ManagementLibraryMM.UI.Models.Book>
+
+@{
     ViewData["Title"] = "Home Page";
+
+    var bookList = ViewBag.BookList as List<ManagementLibraryMM.UI.Models.Book>;
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date of publication</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in bookList){
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.DatePublication.ToShortDateString()</td>
+
+                    <td>
+                        <a href="@Url.Action("Update", new{id = book.Id})">
+                            <img src="~/images/Update.png" alt="Update book" style="width: 20px; height: 20px; cursor: pointer;" />
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="@Url.Action("Delete", new{id = book.Id})">
+                            <img src="~/images/Delete.png" alt="Delete book" style="width: 20px; height: 20px; cursor: pointer;"/>
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>
+
+
+
+

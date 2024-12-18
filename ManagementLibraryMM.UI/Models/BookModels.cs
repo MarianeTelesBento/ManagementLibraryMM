@@ -1,4 +1,6 @@
-﻿namespace ManagementLibraryMM.UI.Models
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace ManagementLibraryMM.UI.Models
 {
     public class Book
     {
