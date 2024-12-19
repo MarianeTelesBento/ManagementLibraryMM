@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-
 using ManagementLibraryMM.UI.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -19,28 +18,23 @@ namespace ManagementLibraryMM.UI.Controllers
         public IActionResult Index()
         {
             BookSearch bookSearch = new BookSearch();
-
             _books = bookSearch.SearchData();
-
             ViewBag.BookList = _books;
             return View();
         }
 
-        public IActionResult Update(int id)
+        [HttpPost]
+        public IActionResult Save(Book book)
         {
             BookSearch bookSearch = new BookSearch();
-
-            bookSearch.UpdateData(id, "Caneta Azul", "Manuel Gomes", DateTime.Now);
-
-            return RedirectToAction("Index");
+            bookSearch.UpdateData(book.Id, book.Title, book.Author, book.DatePublication);
+            return Json(new { success = true });
         }
 
         public IActionResult Delete(int id)
         {
             BookSearch bookSearch = new BookSearch();
-
             bookSearch.DeleteData(id);
-
             return RedirectToAction("Index");
         }
 
@@ -53,9 +47,7 @@ namespace ManagementLibraryMM.UI.Controllers
         public IActionResult Create(Book book)
         {
             BookRegister bookRegister = new BookRegister();
-
             bookRegister.RegisterData(book.Title, book.Author, book.DatePublication);
-
             return View();
         }
 
@@ -63,6 +55,7 @@ namespace ManagementLibraryMM.UI.Controllers
         {
             return View();
         }
+
         public IActionResult SaveToJson()
         {
             return View();
@@ -73,8 +66,5 @@ namespace ManagementLibraryMM.UI.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-
     }
 }
