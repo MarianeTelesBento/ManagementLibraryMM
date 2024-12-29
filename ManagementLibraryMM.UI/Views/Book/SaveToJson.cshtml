@@ -2,7 +2,13 @@
     ViewData["Title"] = "Save To Json Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="display-4">Convert Book List</h1>
+
+<div class="container mt-4" style="display:flex; flex-direction: column; align-items:center; justify-content:center;">
+    
+    <a href="@Url.Action("Convert", "Book")" class="btn btn-primary btn-sm">Convert</a>
+
+    <a href="@Url.Action("Download", "Book")" class="btn btn-primary btn-sm">Download</a>
+
 </div>
+

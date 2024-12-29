@@ -4,15 +4,15 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace ManagementLibraryMM.UI.Models
 {
-    public class BookSearch
+    public class BookDataBase
     {
+        private string _connectionString = "Data Source=PC-MARI\\SQLEXPRESS;Initial Catalog=Library;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
         public List<Book> SearchData()
         {
             List<Book> bookList = new List<Book>();
 
-            string connectionString = "Data Source=DESKTOP-FTCVI92\\SQLEXPRESS;Initial Catalog=Library;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-
-            SqlConnection conn = new SqlConnection(connectionString);
+            SqlConnection conn = new SqlConnection(_connectionString);
             conn.Open();
 
             SqlCommand insertComm = new SqlCommand("SELECT * FROM Books", conn);
@@ -38,9 +38,8 @@ namespace ManagementLibraryMM.UI.Models
         public int UpdateData(int id, string title, string author, DateTime datePublication)
         {
             int update = 0;
-            string connectionString = "Data Source=DESKTOP-FTCVI92\\SQLEXPRESS;Initial Catalog=Library;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
-            SqlConnection conn = new SqlConnection(connectionString);
+            SqlConnection conn = new SqlConnection(_connectionString);
             conn.Open();
 
             SqlCommand updateComm = new SqlCommand("UPDATE Books SET Title = @title, Author = @author, YearPublication = @publicationYear WHERE Id = @id", conn);
@@ -61,9 +60,8 @@ namespace ManagementLibraryMM.UI.Models
         public int DeleteData(int id)
         {
             int delete = 0;
-            string connectionString = "Data Source=DESKTOP-FTCVI92\\SQLEXPRESS;Initial Catalog=Library;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
-            SqlConnection conn = new SqlConnection(connectionString);
+            SqlConnection conn = new SqlConnection(_connectionString);
             conn.Open();
 
             SqlCommand deleteComm = new SqlCommand("DELETE Books WHERE Id = @id", conn);
@@ -75,6 +73,27 @@ namespace ManagementLibraryMM.UI.Models
             conn.Close();
 
             return delete;
+        }
+
+         public int RegisterData(string title, string author, DateTime datePublication)
+        {
+            int sucess = 0;
+            string connectionString = "Data Source=PC-MARI\\SQLEXPRESS;Initial Catalog=Library;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
+            SqlConnection conn = new SqlConnection(connectionString);
+            conn.Open();
+
+            SqlCommand insertComm = new SqlCommand("INSERT INTO Books values(@title, @author, @publicationYear)", conn);
+
+            insertComm.Parameters.AddWithValue("@title", title);
+            insertComm.Parameters.AddWithValue("@author", author);
+            insertComm.Parameters.AddWithValue("@publicationYear", datePublication);
+
+            sucess = insertComm.ExecuteNonQuery();
+
+            conn.Close();
+
+            return sucess;
         }
     }
 }
