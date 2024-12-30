@@ -1,9 +1,20 @@
 ﻿@{
-    ViewData["Title"] = "Load From Json Page";
+    ViewData["Title"] = "Load From Json";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Upload Book List JSON</h1>
+
+    <form asp-action="LoadFromJson" enctype="multipart/form-data" method="post">
+
+        <div class="form-group">
+            <label for="jsonFile">Choose a JSON:</label> 
+            <input type="file" id="jsonFile" accept="application/json" class="form-control" name="jsonFile" accept=".json" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+
+     </form>
+
 </div>
 

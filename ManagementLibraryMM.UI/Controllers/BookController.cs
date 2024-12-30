@@ -4,6 +4,8 @@ using ManagementLibraryMM.UI.Models;
 using ManagementLibraryMM.UI.Services;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace ManagementLibraryMM.UI.Controllers
 {
@@ -54,11 +56,6 @@ namespace ManagementLibraryMM.UI.Controllers
             return View();
         }
 
-        public IActionResult LoadFromJson()
-        {
-            return View();
-        }
-
         public IActionResult SaveToJson()
         {
             return View();
@@ -78,6 +75,33 @@ namespace ManagementLibraryMM.UI.Controllers
             string fileName = "BookList.json";
 
             return PhysicalFile(filePath, fileType, fileName);
+        }
+
+        public IActionResult LoadFromJson()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LoadFromJson(IFormFile jsonFile)
+        {
+
+            if (jsonFile == null || jsonFile.Length == 0) {
+                ModelState.AddModelError(string.Empty, "Please select a valid JSOM");
+                return View();
+            }
+            try
+            {
+                BookJson bookJson = new BookJson();
+                bookJson.JsonToBook(jsonFile);
+                return View();
+            }
+            catch (JsonException ex) {
+                _logger.LogError(ex, "Json File Error");
+                ModelState.AddModelError(string.Empty, "Invalid Json File");
+                return View();
+            }
+
         }
 
 
